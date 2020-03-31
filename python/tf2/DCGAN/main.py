@@ -9,8 +9,6 @@ def main():
     config = get_config_from_json('config.json')
     # create an instance of the model
     model = DCGAN(config)
-    # create tensorboard logger
-    logger = Logger(config, model)
     # create experiments instance
     experiments = Experiments(config, model)
     # create trainer instance

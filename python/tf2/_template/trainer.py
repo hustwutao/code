@@ -6,17 +6,16 @@ import tensorflow as tf
 from utils import data_loader, make_dirs
 
 class Trainer(object):
-    def __init__(self, config, model, logger, experiments):
+    def __init__(self, config, model, experiments):
         self.config = config
         self.model = model
-        self.logger = logger
         self.experiments = experiments
         self.trainloader = data_loader(config)
 
         # checkpoint
         self.checkpoint_dir = make_dirs(os.path.join(self.config.result_path, self.config.checkpoint_path))
         self.ckpt = tf.train.Checkpoint(gen=self.model.gen, g_optim=self.model.g_optim, dis=self.model.dis, d_optim=self.model.d_optim)
-        self.ckpt_manager = tf.train.CheckpointManager(self.ckpt, directory=self.checkpoint_dir, checkpoint_name='ckpt', max_to_keep=3)
+        self.ckpt_manager = tf.train.CheckpointManager(self.ckpt, directory=self.checkpoint_dir, checkpoint_name='ckpt', max_to_keep=2)
 
         # tensorboard
         self.tensorboard_dir = make_dirs(os.path.join(self.config.result_path, self.config.tensorboard_path))
