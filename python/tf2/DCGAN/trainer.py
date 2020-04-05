@@ -39,7 +39,7 @@ class Trainer(object):
 
         # before training, loading checkpoint if exists
         self.load_model()
-        tf.summary.trace_on(profiler=True)
+        tf.summary.trace_on(graph=True, profiler=True)
 
         for epoch in tqdm(range(self.config.num_epochs)):
             start = time.time()
